@@ -238,16 +238,4 @@ pytest
 
 ---
 
-## 🚀 Future Improvements
-
-- 📧 Email notifications
-- 📄 Pagination and advanced search/filtering
-- 🌙 Dark / Light mode toggle
-- 🔁 CI/CD pipeline
-- 🔴 WebSocket live monitoring
-- 🤖 Book recommendation system
-- 🐳 Docker deployment optimizations
-
----
-
 > ⭐ Built for educational and portfolio purposes. Demonstrates full-stack architecture with monitoring, caching, analytics, authentication, and admin systems.
