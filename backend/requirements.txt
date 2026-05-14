@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-jose
+passlib
+redis
+python-dotenv
+pyodbc
+httpx
+pytest
