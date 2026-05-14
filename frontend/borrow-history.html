@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrow History | Library System</title>
+  <!-- الربط بملف الـ CSS الموحد -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="borrow-history">
+
+  <!-- Navbar الموحد -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="profile.html">Profile</a>
+      <a href="borrow-history.html">History</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- استخدام كلاس hero للسنترة الكاملة للمحتوى والجدول -->
+  <main class="hero">
+
+    <section class="page-title">
+      <p class="eyebrow" style="color: #38bdf8; font-weight: bold; margin-bottom: 10px;">Borrowing</p>
+      <h1 style="font-size: 48px; margin-bottom: 10px;">My Borrow History</h1>
+      <p style="color: #cbd5e1; margin-bottom: 40px;">View and manage your previous book records.</p>
+    </section>
+
+    <!-- الكارت اللي جواه الجدول متسنتر وشكله نضيف -->
+    <section class="card" style="width: 100%; max-width: 1000px; margin: 0 auto; overflow-x: auto;">
+      <div id="borrow-history" class="table-wrap">
+        <!-- الجدول بيتحقن هنا بالـ JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- ملفات الـ JS -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/borrow.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
