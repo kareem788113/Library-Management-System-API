@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monitoring Dashboard | Library System</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(3, 7, 18, 0.82),
+                rgba(3, 7, 18, 0.82)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1974&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .monitor-wrapper {
+            width: 90%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        .monitor-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .monitor-title h1 {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .monitor-title p {
+            color: #cbd5e1;
+            font-size: 18px;
+        }
+
+        .monitor-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(18px);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-box {
+            background: rgba(255,255,255,0.06);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .summary-box h2 {
+            font-size: 42px;
+            margin: 0;
+            color: #38bdf8;
+        }
+
+        .summary-box span {
+            color: #cbd5e1;
+        }
+
+        .chart-card {
+            margin-bottom: 30px;
+        }
+
+        .chart-card h3 {
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+
+        canvas {
+            background: rgba(255,255,255,0.04);
+            border-radius: 18px;
+            padding: 10px;
+            width: 100% !important;
+            max-height: 420px !important;
+        }
+
+        .logs {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .logs li {
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid #38bdf8;
+        }
+
+        .logs li.error {
+            border-left-color: #ef4444;
+            color: #fecaca;
+        }
+
+        .refresh-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .refresh-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="monitor-wrapper">
+
+        <div class="monitor-title">
+            <p style="color:#38bdf8;font-weight:bold;">Monitoring</p>
+            <h1>System Dashboard</h1>
+            <p>Track requests, errors, response times and system health.</p>
+        </div>
+
+        <button class="refresh-btn" onclick="loadData()">
+            🔄 Refresh Dashboard
+        </button>
+
+        <div class="summary-grid">
+
+            <div class="summary-box">
+                <h2 id="requests-count">0</h2>
+                <span>Total Requests</span>
+            </div>
+
+            <div class="summary-box">
+                <h2 id="errors-count">0</h2>
+                <span>Total Errors</span>
+            </div>
+
+            <div class="summary-box">
+                <h2 id="health-status">🟢</h2>
+                <span>System Health</span>
+            </div>
+
+        </div>
+
+        <div class="monitor-card chart-card">
+            <h3>📌 Requests per Endpoint</h3>
+            <canvas id="requestsChart"></canvas>
+        </div>
+
+        <div class="monitor-card chart-card">
+            <h3>⚠ Errors per Endpoint</h3>
+            <canvas id="errorsChart"></canvas>
+        </div>
+
+        <div class="monitor-card chart-card">
+            <h3>⏱ Average Response Time</h3>
+            <canvas id="timeChart"></canvas>
+        </div>
+
+        <div class="monitor-card chart-card">
+            <h3>📉 Error Rate</h3>
+            <div style="height:400px;">
+                <canvas id="errorRateChart"></canvas>
+            </div>
+        </div>
+
+        <div class="monitor-card">
+            <h3 style="color:#38bdf8;">📝 Recent Logs</h3>
+            <ul id="logs" class="logs"></ul>
+        </div>
+
+    </div>
+
+    <script>
+
+        let requestsChart, errorsChart, timeChart, errorRateChart;
+
+        async function loadData() {
+
+            const res = await fetch("http://localhost:8000/monitor/");
+            const data = await res.json();
+
+            document.getElementById("requests-count").textContent =
+                data.total_requests;
+
+            document.getElementById("errors-count").textContent =
+                data.total_errors;
+
+            document.getElementById("health-status").textContent =
+                data.health === "OK" ? "🟢" : "🔴";
+
+            const labels = data.endpoints.map(e => e.path || "unknown");
+            const requests = data.endpoints.map(e => e.requests);
+            const errors = data.endpoints.map(e => e.errors);
+            const times = data.endpoints.map(e => e.avg_time);
+
+            if (requestsChart) requestsChart.destroy();
+            if (errorsChart) errorsChart.destroy();
+            if (timeChart) timeChart.destroy();
+            if (errorRateChart) errorRateChart.destroy();
+
+            requestsChart = new Chart(
+                document.getElementById("requestsChart"),
+                {
+                    type: "bar",
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: "Requests",
+                            data: requests
+                        }]
+                    }
+                }
+            );
+
+            errorsChart = new Chart(
+                document.getElementById("errorsChart"),
+                {
+                    type: "bar",
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: "Errors",
+                            data: errors
+                        }]
+                    }
+                }
+            );
+
+            timeChart = new Chart(
+                document.getElementById("timeChart"),
+                {
+                    type: "bar",
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: "Avg Time",
+                            data: times
+                        }]
+                    }
+                }
+            );
+
+            errorRateChart = new Chart(
+    document.getElementById("errorRateChart"),
+    {
+        type: "doughnut",
+        data: {
+            labels: ["Success", "Errors"],
+            datasets: [{
+                data: [
+                    data.total_requests - data.total_errors,
+                    data.total_errors
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    }
+);
+
+            const logsList = document.getElementById("logs");
+
+            logsList.innerHTML = "";
+
+            data.recent_logs.forEach(log => {
+
+                const li = document.createElement("li");
+
+                li.textContent =
+                    `${log.method} ${log.path} — ${log.status} (${log.time}s)`;
+
+                if (log.status >= 400 || log.status === "ERROR") {
+                    li.classList.add("error");
+                }
+
+                logsList.appendChild(li);
+
+            });
+
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadData();
+            setInterval(loadData, 10000);
+        });
+
+    </script>
+
+</body>
+
+</html>

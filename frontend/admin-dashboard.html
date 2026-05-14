@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Library System</title>
+  <!-- التأكد من ربط ملف الـ CSS الموحد -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="admin-dashboard">
+
+  <!-- Navbar الموحد بتنسيق الأدمن -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="monitor.html">Monitor</a>
+      <a href="add-book.html">Add Book</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- استخدام كلاس hero للسنترة الكاملة للمحتوى -->
+  <main class="hero">
+
+    <section class="page-title">
+      <p class="eyebrow" style="color: #38bdf8; font-weight: bold; margin-bottom: 10px;">Control Panel</p>
+      <h1 style="font-size: 48px; margin-bottom: 10px;">Admin Dashboard</h1>
+      <p style="color: #cbd5e1; margin-bottom: 40px;">Manage books and view all borrowing history from one place.</p>
+    </section>
+
+    <!-- الإحصائيات متسنترة ومنظمة -->
+        <section
+      id="admin-stats"
+      style="
+        width: 100%;
+        max-width: 1000px;
+        margin-bottom: 40px;
+      "
+    >
+      <!-- stats injected here -->
+    </section>
+
+    <!-- جدول الكتب -->
+    <section class="card" style="width: 100%; max-width: 1100px; margin-bottom: 30px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="color: #38bdf8;">All Books</h2>
+        <a class="btn" href="add-book.html" style="padding: 10px 20px;">+ Add Book</a>
+      </div>
+      <div id="admin-books" class="table-wrap" style="overflow-x: auto;">
+        <!-- الجدول بيتحقن هنا -->
+      </div>
+    </section>
+
+    <!-- جدول تاريخ الاستعارات الشامل -->
+    <section class="card" style="width: 100%; max-width: 1100px; text-align: left;">
+      <h2 style="color: #38bdf8; margin-bottom: 20px;">All Borrow History</h2>
+      <div id="all-borrow-history" class="table-wrap" style="overflow-x: auto;">
+        <!-- الجدول بيتحقن هنا -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- ملفات الـ JS الأساسية -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/borrow.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
