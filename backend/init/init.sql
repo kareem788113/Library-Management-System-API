@@ -1,0 +1,2 @@
+CREATE DATABASE library_db;
+GO
