@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Book | Library System</title>
+  <!-- الربط بملف الـ CSS الموحد -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="add-book">
+
+  <!-- Navbar الموحد لسهولة التنقل -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="admin-dashboard.html">Admin Dashboard</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- استخدام كلاس hero لضمان السنترة في نص الصفحة -->
+  <main class="hero">
+    <section class="auth-shell">
+      <form class="auth-card" id="add-book-form" style="width: 100%; max-width: 500px; margin: 0 auto;">
+
+        <p class="eyebrow" style="color: #38bdf8; font-weight: bold; margin-bottom: 10px;">Admin Action</p>
+        <h1 style="font-size: 36px; margin-bottom: 25px;">Add New Book</h1>
+
+        <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+          <label style="display: flex; flex-direction: column; gap: 5px;">
+            Book Title
+            <input id="bookTitleInput" name="title" type="text" required 
+                   placeholder="Enter book title"
+                   style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+          </label>
+
+          <label style="display: flex; flex-direction: column; gap: 5px;">
+            Author Name
+            <input id="bookAuthorInput" name="author" type="text" required 
+                   placeholder="Enter author name"
+                   style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+          </label>
+
+          <label style="display: flex; flex-direction: column; gap: 5px;">
+            Available Copies
+            <input id="bookCopiesInput" name="available_copies" type="number" required min="1"
+                   placeholder="Number of copies"
+                   style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+          </label>
+
+          <button class="btn" type="submit" style="width: 100%; margin-top: 15px;">
+            Create Book
+          </button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- ملفات الـ JS الأساسية -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+
+</html>

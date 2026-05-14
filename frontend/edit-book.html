@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Book | Library System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="edit-book">
+  <nav class="navbar">
+
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+
+  </nav>
+  <!-- <header class="site-header">
+    <a class="brand" href="index.html"><span>📚</span> Library System</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav" id="mainNav"></nav>
+  </header> -->
+  <main class="container">
+
+<section class="page-title"><p class="eyebrow">Admin CRUD</p><h1>Edit Book</h1></section>
+<form class="card form-card" id="edit-book-form">
+  <label>Title<input id="editTitleInput" name="title" required /></label>
+  <label>Author<input id="editAuthorInput" name="author" required /></label>
+  <label>Available copies<input id="editCopiesInput" name="available_copies" type="number" min="0" required /></label>
+  <button class="btn primary" type="submit">Save Changes</button>
+</form>
+
+  </main>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/borrow.js"></script>
+</body>
+</html>

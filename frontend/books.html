@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books | Library System</title>
+  <!-- التأكد من ربط ملف الـ CSS الموحد المحدث -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="books">
+
+  <!-- Navbar الموحد بالشكل الجديد -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="borrow-history.html">History</a>
+      <a href="profile.html">Profile</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- استخدام كلاس hero للسنترة الكاملة -->
+  <main class="hero">
+
+    <div class="page-title">
+      <p class="eyebrow" style="color: #38bdf8; font-weight: bold; margin-bottom: 10px;">Collection</p>
+      <h1 style="font-size: 48px; margin-bottom: 10px;">Available Books</h1>
+      <p style="color: #cbd5e1; margin-bottom: 30px;">
+        Browse and manage our digital library collection.
+      </p>
+    </div>
+
+    <!-- شريط البحث والزرار في حاوية السنترة الجديدة -->
+      <div class="search-container">
+    <input 
+      id="book-search" 
+      type="search" 
+      placeholder="Search books by title or author..."
+    >
+
+    <div id="admin-add-book"></div>
+  </div>
+
+    <!-- شبكة الكروت هتكون متسنترة تلقائياً تحت البحث -->
+    <div id="books-list" class="cards">
+        <!-- الكتب بتظهر هنا أوتوماتيك من الـ JS -->
+    </div>
+
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- ملفات الـ JS الأساسية لتشغيل الصفحة -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/borrow.js"></script>
+</body>
+
+</html>
