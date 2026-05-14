@@ -1,0 +1,112 @@
+بعد ما تفك الـ ZIP اعمل الخطوات دي بالترتيب:
+
+---
+
+1️⃣ افتح Terminal أو CMD داخل فولدر المشروع
+
+مثال:
+
+```bash id="0tyn8x"
+cd O:\library_system\backend
+```
+
+الأمر ده بيدخلك على مكان المشروع عشان كل الأوامر تشتغل عليه.
+
+---
+
+2️⃣ اعمل Virtual Environment
+
+```bash id="7wfxoq"
+python -m venv venv
+```
+
+ده بيعمل بيئة Python معزولة للمشروع بحيث الـ packages الخاصة بالمشروع متتلخبطش مع أي مشاريع تانية.
+
+---
+
+3️⃣ فعّل البيئة
+
+```bash id="odjlwm"
+venv\Scripts\activate
+```
+
+لو اشتغلت هتلاقي اسم البيئة ظهر في بداية الـ terminal.
+
+---
+
+4️⃣ ثبّت الـ requirements
+
+```bash id="7w89j7"
+pip install -r requirements.txt
+```
+
+ده هيحمّل كل المكتبات اللي المشروع محتاجها زي:
+
+* FastAPI
+* SQLAlchemy
+* Redis
+* JWT
+* pytest
+* وغيرها
+
+---
+
+5️⃣ شغّل Redis باستخدام Docker
+
+```bash id="6l0qg9"
+docker run -d -p 6379:6379 --name redis-server redis
+```
+
+Redis مستخدم للكاش (Caching).
+
+الأمر ده بيشغّل Redis Container في الخلفية باستخدام Docker.
+
+لو Redis كان متشغل قبل كده استخدم:
+
+```bash id="v0g7gl"
+docker start redis-server
+```
+
+---
+
+6️⃣ شغّل الـ Backend
+
+```bash id="j3u1w2"
+python -m uvicorn app.main:app --reload
+```
+
+ده بيشغّل السيرفر الخاص بالمشروع.
+
+لو كل حاجة تمام هتلاقي:
+
+```text id="u0rmjv"
+Application startup complete
+```
+
+---
+
+7️⃣ افتح المشروع من المتصفح
+
+Swagger Docs:
+
+```text id="5fvdpi"
+http://127.0.0.1:8000/docs
+```
+
+وده الـ API documentation اللي تقدر تجرب منه كل الـ endpoints.
+
+---
+
+Monitoring Dashboard:
+
+```text id="6o3vwy"
+http://127.0.0.1:8000/monitor/dashboard
+```
+
+وده dashboard للمراقبة بيعرض:
+
+* عدد الـ requests
+* response times
+* errors
+* logs
+* system health
