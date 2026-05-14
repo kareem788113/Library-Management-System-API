@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Library System</title>
+  <!-- التأكد من مسار الـ CSS الموحد -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="login">
+
+  <!-- Navbar الموحد بالشكل الشيك -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <!-- استخدام كلاس hero الموحد للسنترة -->
+  <main class="hero">
+    <section class="auth-shell">
+      <form class="auth-card" id="login-form">
+        <p class="eyebrow" style="color: #38bdf8; font-weight: bold; margin-bottom: 10px;">Welcome back</p>
+        <h1 style="font-size: 36px; margin-bottom: 20px;">Login</h1>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 400px; margin: 0 auto;">
+          <label style="text-align: left; display: flex; flex-direction: column; gap: 5px;">
+            Username
+            <input id="loginUsername" name="username" type="text" required autocomplete="username" 
+                   style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+          </label>
+          
+          <label style="text-align: left; display: flex; flex-direction: column; gap: 5px;">
+            Password
+            <input id="loginPassword" name="password" type="password" required autocomplete="current-password" 
+                   style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+          </label>
+          
+          <button class="btn" type="submit" style="width: 100%; margin-top: 10px;">Login</button>
+        </div>
+
+        <p class="muted center" style="margin-top: 20px; color: #cbd5e1;">
+          No account? <a href="register.html" style="color: #38bdf8; text-decoration: none;">Register here</a>
+        </p>
+      </form>
+    </section>
+  </main>
+  
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- ملفات الـ JS -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
