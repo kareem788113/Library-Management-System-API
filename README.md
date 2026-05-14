@@ -1,197 +1,253 @@
-# 📚 Library System API
+# 📚 Library Management System
 
-A full-featured **Library Management System** built using **FastAPI**.
-This project demonstrates RESTful API design, authentication, role-based access, caching, logging, and monitoring.
+A full-stack library management system built with **FastAPI**, **SQLAlchemy**, **JWT Authentication**, and a modern HTML/CSS/JavaScript frontend. The system covers authentication, role-based access, borrowing workflows, admin dashboards, monitoring, caching, and analytics.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-* 📖 Manage books (CRUD operations)
-* 👤 User authentication (JWT)
-* 🔐 Role-based authorization (Admin / User)
-* 🔄 Borrow & return system
-* ⚡ Redis caching (performance optimization)
-* 📊 Monitoring dashboard (requests, errors, logs)
-* 🧪 Automated testing with pytest
-* 🧾 Structured logging system
+### 👤 Authentication & Authorization
+
+- JWT-based authentication with persistent login
+- User registration and login
+- Role-based access control (User / Admin)
+- Admin-only protected endpoints
+
+### 📖 Books Management
+
+**Users** can browse, search, borrow, and return books, and view their personal borrow history.
+
+**Admins** can add, edit, soft-delete, restore, and permanently delete books, and view all books including inactive ones.
+
+### 🔄 Borrowing System
+
+- Borrow and return available books
+- Automatic copy count tracking
+- Prevention of borrowing unavailable books
+- Personal and admin-wide borrow history
+
+### ⚡ Caching
+
+- GET `/books/` is cached for performance
+- Cache is automatically invalidated on create, update, delete, or restore
+
+### 📊 Monitoring Dashboard
+
+Real-time dashboard with auto-refresh every 10 seconds, including:
+
+- Total requests, errors, error rate, and average response time
+- Per-endpoint analytics (requests, errors, response times)
+- Recent logs viewer
+- Charts powered by Chart.js
+
+### 🧾 Logging Middleware
+
+Tracks HTTP requests, response codes, errors, execution time, and endpoint activity.
 
 ---
 
 ## 🏗️ Project Structure
 
 ```
-backend/
+library_system/
 │
-├── app/
-│   ├── api/                # Routes
-│   ├── core/               # Security & dependencies
-│   ├── database/           # DB connection
-│   ├── models/             # SQLAlchemy models
-│   ├── schemas/            # Pydantic schemas
-│   ├── services/           # Business logic
-│   ├── repositories/       # DB operations
-│   ├── middleware/         # Logging middleware
-│   ├── cache/              # Redis caching
-│   ├── exceptions/         # Custom exceptions
-│   ├── templates/          # HTML dashboard
-│   └── main.py             # Entry point
+├── backend/
+│   ├── app/
+│   │   ├── api/            # API routes
+│   │   ├── core/           # Security & dependencies
+│   │   ├── database/       # Database connection
+│   │   ├── models/         # SQLAlchemy models
+│   │   ├── schemas/        # Pydantic schemas
+│   │   ├── services/       # Business logic
+│   │   ├── repositories/   # Database operations
+│   │   ├── middleware/     # Logging middleware
+│   │   ├── cache/          # Caching system
+│   │   ├── exceptions/     # Custom exceptions
+│   │   ├── logging/        # Logger setup
+│   │   ├── monitoring/     # Monitoring logic
+│   │   └── main.py         # FastAPI entry point
+│   │
+│   ├── tests/              # Pytest test cases
+│   ├── requirements.txt
+│   └── README.md
 │
-├── tests/                  # Test cases
-├── requirements.txt
-└── README.md
+├── frontend/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── books.html
+│   ├── profile.html
+│   ├── dashboard.html
+│   ├── admin-dashboard.html
+│   ├── borrow-history.html
+│   ├── admin-history.html
+│   ├── monitor.html
+│   └── add-book.html
+│
+└── docker-compose.yml
 ```
 
 ---
 
 ## ⚙️ Installation
 
-### 1️⃣ Clone the repository
+### 1️⃣ Clone the Repository
 
+```bash
+git clone <your-repository-url>
+cd library_system
 ```
-git clone <your-repo-url>
-cd backend
-```
 
----
+### 2️⃣ Create a Virtual Environment
 
-### 2️⃣ Create virtual environment
-
-```
+```bash
 conda create -n library_env python=3.10
 conda activate library_env
 ```
 
----
+### 3️⃣ Install Dependencies
 
-### 3️⃣ Install dependencies
-
-```
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Run the Application
+## ▶️ Running the Project
+
+### 🖥️ Backend
+
+```bash
+uvicorn app.main:app --reload
+```
+
+The backend runs at `http://127.0.0.1:8000`.
+
+### 🌐 Frontend
+
+Open any HTML file directly in your browser, or use a Live Server extension:
 
 ```
-uvicorn app.main:app --reload
+frontend/index.html
+```
+
+### 🐳 Docker
+
+```bash
+docker-compose up --build
 ```
 
 ---
 
 ## 📌 API Documentation
 
-* Swagger UI:
-  👉 http://127.0.0.1:8000/docs
-
-* Redoc:
-  👉 http://127.0.0.1:8000/redoc
-
----
-
-## 🔐 Authentication
-
-### Register
-
-```
-POST /auth/register
-```
-
-### Login
-
-```
-POST /auth/login
-```
-
-👉 Returns JWT token
+| Interface | URL |
+|-----------|-----|
+| Swagger UI | `http://127.0.0.1:8000/docs` |
+| ReDoc | `http://127.0.0.1:8000/redoc` |
 
 ---
 
-## 📚 Books Endpoints
+## 🔌 API Reference
 
-| Method | Endpoint            | Description           |
-| ------ | ------------------- | --------------------- |
-| GET    | /books/             | Get all active books  |
-| GET    | /books/all          | Get all books (admin) |
-| POST   | /books/             | Create book (admin)   |
-| PUT    | /books/{id}         | Update book (admin)   |
-| DELETE | /books/{id}         | Soft delete (admin)   |
-| PUT    | /books/restore/{id} | Restore book (admin)  |
+### 🔐 Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register a new user |
+| POST | `/auth/login` | Login and receive JWT |
+| GET | `/me` | Get current user info |
+
+### 📚 Books
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/books/` | Get active books (cached) |
+| GET | `/books/all` | Get all books — admin only |
+| POST | `/books/` | Create a new book |
+| PUT | `/books/{id}` | Update a book |
+| DELETE | `/books/{id}` | Soft delete (deactivate) |
+| PUT | `/books/restore/{id}` | Restore an inactive book |
+| DELETE | `/books/hard-delete/{id}` | Permanently delete a book |
+
+### 📦 Borrowing
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/borrow/{book_id}` | Borrow a book |
+| POST | `/borrow/return/{book_id}` | Return a book |
+| GET | `/borrow/my-history` | Personal borrow history |
+| GET | `/borrow/all-history` | Full history — admin only |
+
+### 📈 Monitoring
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/monitor/` | Get monitoring metrics |
 
 ---
 
-## 📦 Borrow System
+## 👥 Roles
 
-| Method | Endpoint                 |
-| ------ | ------------------------ |
-| POST   | /borrow/{book_id}        |
-| POST   | /borrow/return/{book_id} |
-| GET    | /borrow/my-history       |
+### 🙋 User
 
----
+- View and search books
+- Borrow and return books
+- View personal borrow history
+- View profile
 
-## ⚡ Caching (Redis)
+### 🛡️ Admin
 
-* Cache GET `/books/`
-* Cache invalidation on:
-
-  * Create
-  * Update
-  * Delete
+- All user permissions
+- Add, edit, deactivate, restore, and permanently delete books
+- View all borrow history
+- Access the monitoring dashboard
 
 ---
 
-## 📊 Monitoring Dashboard
+## 🗑️ Soft Delete vs Hard Delete
 
-### API
+Books are not immediately removed. A soft delete sets `is_active = False`, hiding the book from regular users while keeping it visible to admins and allowing it to be restored later.
 
+A hard delete permanently removes the book:
+
+```http
+DELETE /books/hard-delete/{id}
 ```
-GET /monitor/
-```
-
-### Dashboard UI
-
-```
-http://127.0.0.1:8000/monitor/dashboard
-```
-
-### Includes:
-
-* Request count
-* Error rate
-* Response time
-* Logs
 
 ---
 
 ## 🧪 Testing
 
-Run tests:
-
-```
-python -m pytest
+```bash
+pytest
 ```
 
 ---
 
-## 📝 Logging
+## 🔧 Tech Stack
 
-* Logs all requests & responses
-* Tracks errors
-* Shows response time
+| Layer | Technologies |
+|-------|-------------|
+| Backend | FastAPI, SQLAlchemy, Pydantic, JWT, Pytest, Redis |
+| Frontend | HTML5, CSS3, Vanilla JavaScript, Chart.js |
+| Infrastructure | Docker, Docker Compose |
+
+---
+
+## 🚀 Future Improvements
+
+- 📧 Email notifications
+- 📄 Pagination and advanced search/filtering
+- 🌙 Dark / Light mode toggle
+- 🔁 CI/CD pipeline
+- 🔴 WebSocket live monitoring
+- 🤖 Book recommendation system
+- 🐳 Docker deployment optimizations
 
 ---
 
-## 🐳 Docker (Optional)
-
-```
-docker-compose up --build
-```
-
-## ⭐ Notes
-
-* This project is built for educational purposes.
-* Demonstrates backend best practices using FastAPI.
-
----
+> ⭐ Built for educational and portfolio purposes. Demonstrates full-stack architecture with monitoring, caching, analytics, authentication, and admin systems.
