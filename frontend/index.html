@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library System | Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="home">
+
+  <!-- Navbar الموحد -->
+  <nav class="navbar">
+    <div class="logo">
+      <h2>📚 Library System</h2>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="hero">
+
+    <h1 style="font-size: 64px; margin-bottom: 30px;">University Library System</h1>
+
+    <!-- النص داخل كارت شفاف Glassmorphism -->
+    <div class="card" style="max-width: 900px; margin: 0 auto 40px; padding: 40px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px;">
+      <p style="font-size: 22px; line-height: 1.8; color: #e2e8f0; margin: 0;">
+        Welcome to our sanctuary of knowledge. We host a vast collection of books spanning every field imaginable. 
+        Whether you are seeking deep research or a casual read, you can borrow any book you desire at any time. 
+        Your journey through wisdom starts here.
+      </p>
+    </div>
+
+    <div class="buttons" style="margin-bottom: 80px;">
+      <a href="register.html" class="btn">Get Started</a>
+      <a href="books.html" class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid white;">Browse Books</a>
+    </div>
+
+    <!-- قسم المواضيع (Categories) -->
+    <h2 style="margin-bottom: 30px; font-size: 32px; color: #38bdf8;">Explore Our Specialized Fields</h2>
+    
+    <div class="cards">
+      <div class="card">
+        <div style="font-size: 40px; margin-bottom: 15px;">🏗️</div>
+        <h3>Engineering</h3>
+        <p>From structural design to advanced robotics and software engineering.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 40px; margin-bottom: 15px;">🩺</div>
+        <h3>Medicine</h3>
+        <p>Comprehensive resources on human anatomy, surgery, and modern healthcare.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 40px; margin-bottom: 15px;">🌌</div>
+        <h3>Space & Astronomy</h3>
+        <p>Unveil the mysteries of the universe, black holes, and planetary science.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 40px; margin-bottom: 15px;">📜</div>
+        <h3>Occult Sciences</h3>
+        <p>Explore the forbidden knowledge, ancient myths, and esoteric philosophies.</p>
+      </div>
+    </div>
+
+    <!-- قسم المميزات التقنية -->
+    <div class="cards" style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px;">
+      <div class="card" style="background: none; border: none; box-shadow: none;">
+        <h3 style="color: #38bdf8;">FastAPI Backend</h3>
+        <p>Powered by a high-performance Python API for seamless data management.</p>
+      </div>
+      <div class="card" style="background: none; border: none; box-shadow: none;">
+        <h3 style="color: #38bdf8;">Real-time Updates</h3>
+        <p>Experience instant borrowing and inventory tracking.</p>
+      </div>
+      <div class="card" style="background: none; border: none; box-shadow: none;">
+        <h3 style="color: #38bdf8;">Admin Control</h3>
+        <p>Full CRUD operations to manage the entire library ecosystem easily.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/borrow.js"></script>
+
+</body>
+</html>
